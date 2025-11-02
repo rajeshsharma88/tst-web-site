@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { content } from '../data/content';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,9 +34,9 @@ const Header: React.FC = () => {
       <div className="bg-gray-100 text-gray-600 text-xs hidden md:block">
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
           <div>
-            <span>Phone: +1 (800) 555-TST1</span>
+            <span>Phone: {content.contact.phone}</span>
             <span className="mx-3">|</span>
-            <span>Email: sales@tst-technologies.com</span>
+            <span>Email: {content.contact.email}</span>
           </div>
           <span>Advanced Security Systems</span>
         </div>

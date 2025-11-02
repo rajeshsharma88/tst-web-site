@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { content } from '../data/content';
 
 // Fix: Moved SocialIcon outside of the Footer component to prevent re-declaration on each render and resolve potential tooling issues with type inference.
 const SocialIcon = ({ href, children }: { href: string; children: React.ReactNode }) => (
@@ -60,9 +61,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Contact Us</h3>
             <div className="text-sm text-gray-400 space-y-3">
-                <p>123 Security Drive,<br/>Tech Park, Innovation City, 45678</p>
-                <p>Email: <a href="mailto:info@tst-technologies.com" className="hover:text-primary">info@tst-technologies.com</a></p>
-                <p>Phone: <a href="tel:+18005558781" className="hover:text-primary">+1 (800) 555-TST1</a></p>
+                <p>{content.contact.address.join('<br/>')}</p>
+                <p>Email: <a href={`mailto:${content.contact.email}`} className="hover:text-primary">{content.contact.email}</a></p>
+                <p>Phone: <a href={`tel:${content.contact.phone.replace(/\s/g, '')}`} className="hover:text-primary">{content.contact.phone}</a></p>
             </div>
           </div>
         </div>

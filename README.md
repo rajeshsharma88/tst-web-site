@@ -1,7 +1,7 @@
 
 # TST Technologies - Corporate Website & Deployment Guide
 
-This repository contains the source code for the TST Technologies corporate website, a modern, professional, and SEO-optimized static site built with React and TypeScript.
+This repository contains the source code for the TST Technologies corporate website, a modern, professional, and SEO-optimized dynamic site built with React and TypeScript.
 
 This README serves as a comprehensive guide for deployment, maintenance, and performance testing.
 
@@ -26,7 +26,8 @@ This README serves as a comprehensive guide for deployment, maintenance, and per
 -   **Routing:** React Router (`HashRouter` for compatibility)
 -   **Features:**
     -   Fully responsive design
-    -   Dynamic product catalog from a central data source
+    -   Dynamic content loaded from centralized data files (`.ts` files acting as JSON)
+    -   Dynamic product catalog
     -   On-scroll animations via IntersectionObserver
     -   Dynamic SEO tags and JSON-LD schema generation
     -   Interactive contact forms and quote request modal
@@ -46,13 +47,16 @@ The project is organized with a clear and scalable structure.
 ├── components/               # Reusable UI components (Header, Footer, etc.)
 │   ├── AnimatedSection.tsx
 │   ├── ContactModal.tsx
+│   ├── FeatureCard.tsx         # Modular template for feature sections
 │   ├── Footer.tsx
 │   ├── Header.tsx
 │   ├── Layout.tsx
 │   ├── ProductCard.tsx
-│   └── ScrollToTopButton.tsx
+│   ├── ScrollToTopButton.tsx
+│   └── TimelineItem.tsx      # Modular template for timeline
 ├── data/
-│   └── products.ts           # Central data source for all product information
+│   ├── products.ts           # Central data source for all product information
+│   └── content.ts            # Central data source for all page text content
 ├── hooks/
 │   ├── ScrollToTop.ts
 │   ├── useIntersectionObserver.ts
@@ -80,10 +84,10 @@ Before deploying, ensure the site runs correctly on your local machine.
 ## 4. Deployment Checklist
 
 -   [ ] **Favicon:** The `favicon.svg` in `index.html` has been replaced with the official company logo.
--   [ ] **Contact Info:** All placeholder phone numbers, emails, and addresses in `Header.tsx`, `Footer.tsx`, and `ContactPage.tsx` have been updated.
+-   [ ] **Contact Info:** The `data/content.ts` file has been updated with the correct phone numbers, emails, and address.
 -   [ ] **Social Links:** Social media URLs in `Footer.tsx` point to the company's official profiles.
 -   [ ] **SEO Metadata:** Default titles and descriptions in the `useSeo` hook on each page component are finalized.
--   [ ] **Product Data:** The `data/products.ts` file contains accurate and complete product information. All placeholder images (`picsum.photos`) have been replaced with actual product photos.
+-   [ ] **Product & Page Content:** The `data/products.ts` and `data/content.ts` files contain accurate and complete information. All placeholder images (`picsum.photos`) have been replaced with actual photos.
 -   [ ] **Final Audit:** Run a final performance and SEO audit locally using Lighthouse.
 
 ---
@@ -175,13 +179,15 @@ After deployment, it's crucial to test the live site.
 
 ## 9. Website Maintenance
 
+The website is designed to be easily updated by modifying central data files, with no need to change the component code.
+
+### Updating Page Content
+
+-   **To change text** on the Home, About, or Contact pages (e.g., headlines, mission statement, testimonials, contact info), edit the corresponding sections in `src/data/content.ts`.
+
 ### Adding or Updating a Product
 
-All product data is managed centrally in `data/products.ts`.
-
-1.  **Locate the File:** Open `src/data/products.ts`.
-2.  **Add a New Product:** Copy an existing product object and paste it at the end of the `PRODUCTS` array.
-3.  **Update the Details:** Modify each field for the new product. Follow the `Product` interface defined in `src/types.ts`.
+-   **To add, remove, or modify products**, edit the `PRODUCTS` array in `src/data/products.ts`. Follow the `Product` interface defined in `src/types.ts`.
 
 **Product Object Structure:**
 
@@ -210,4 +216,4 @@ All product data is managed centrally in `data/products.ts`.
 }
 ```
 
-4.  **Save and Deploy:** Once you've added the new product, save the file, commit your changes, and push to your repository. Netlify or your GitHub Action will automatically redeploy the site with the updated product catalog.
+After making any changes to these files, commit and push them to your repository. The live site will be updated automatically by your deployment service (Netlify or GitHub Pages).
