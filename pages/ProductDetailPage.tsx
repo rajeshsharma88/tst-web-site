@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { PRODUCTS } from '../data/products';
@@ -5,6 +6,7 @@ import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
 import ContactModal from '../components/ContactModal';
 import AnimatedSection from '../components/AnimatedSection';
+import useSeo from '../hooks/useSeo';
 
 const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +27,33 @@ const ProductDetailPage: React.FC = () => {
       setRelatedProducts(related);
     }
   }, [id]);
+
+  // SEO Hook
+  useSeo({
+    title: product ? `${product.name} | TST Technologies` : 'Product Not Found',
+    description: product ? product.short : 'The product you are looking for could not be found.',
+    imageUrl: product ? product.images[0] : undefined,
+    jsonLd: product ? {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      image: product.images[0],
+      description: product.short,
+      sku: product.id,
+      brand: {
+        '@type': 'Brand',
+        name: 'TST Technologies'
+      },
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'USD',
+        // Price is not available, so we indicate it's available on request
+        availability: 'https://schema.org/InStock', 
+        url: window.location.href, 
+        price: '0', // Required for validation, but we can state price is on request
+      }
+    } : undefined,
+  });
 
   if (!product) {
     return (
@@ -57,7 +86,7 @@ const ProductDetailPage: React.FC = () => {
                 {/* Image Gallery */}
                 <div>
                   <div className="border rounded-lg p-4 mb-4">
-                    <img src={activeImage} alt={product.name} className="w-full h-auto object-contain aspect-square rounded-lg"/>
+                    <img src={activeImage} alt={`Main view of ${product.name}, a high-tech ${product.category} solution`} className="w-full h-auto object-contain aspect-square rounded-lg"/>
                   </div>
                   <div className="flex space-x-2">
                     {product.images.map((img, index) => (
@@ -66,7 +95,7 @@ const ProductDetailPage: React.FC = () => {
                         onClick={() => setActiveImage(img)}
                         className={`border-2 rounded-lg p-1 ${activeImage === img ? 'border-primary' : 'border-transparent'}`}
                       >
-                        <img src={img} alt={`${product.name} thumbnail ${index + 1}`} className="w-20 h-20 object-cover rounded"/>
+                        <img src={img} alt={`Thumbnail ${index + 1} for ${product.name} ${product.category} system`} className="w-20 h-20 object-cover rounded"/>
                       </button>
                     ))}
                   </div>

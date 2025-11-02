@@ -1,12 +1,19 @@
+
 import React, { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { PRODUCTS } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import AnimatedSection from '../components/AnimatedSection';
+import useSeo from '../hooks/useSeo';
 
 const categories = ['All', 'Biometric', 'Access Control', 'Turnstile', 'Inspection'];
 
 const ProductsPage: React.FC = () => {
+  useSeo({
+    title: 'Security Products Catalog | TST Technologies',
+    description: 'Browse our comprehensive catalog of security products, including biometric readers, access control panels, turnstiles, and X-ray inspection systems. Filter by category to find your solution.'
+  });
+  
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   

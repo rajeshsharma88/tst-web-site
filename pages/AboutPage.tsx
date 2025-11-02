@@ -1,7 +1,15 @@
+
 import React from 'react';
 import AnimatedSection from '../components/AnimatedSection';
+import useSeo from '../hooks/useSeo';
 
 const AboutPage: React.FC = () => {
+  useSeo({
+    title: 'About TST Technologies | Our Mission & History',
+    description: 'Learn about TST Technologies, our mission to innovate security, our history of excellence, and the core strengths that make us a leader in the access control industry.',
+    imageUrl: 'https://picsum.photos/seed/team/1200/630'
+  });
+
   return (
     <div className="bg-white">
       {/* Page Header */}
@@ -26,7 +34,7 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
             <div>
-              <img src="https://picsum.photos/seed/mission/600/450" alt="Team collaborating on a project" className="rounded-lg shadow-xl"/>
+              <img src="https://picsum.photos/seed/mission/600/450" alt="TST Technologies engineering team collaborating on a security system schematic" className="rounded-lg shadow-xl"/>
             </div>
           </div>
         </section>
@@ -124,7 +132,7 @@ const AboutPage: React.FC = () => {
           <div className="container mx-auto px-4 py-20 text-center text-white">
             <h2 className="text-3xl font-bold mb-4">Meet Our Dedicated Team</h2>
             <p className="max-w-2xl mx-auto mb-8">A group of passionate professionals committed to excellence and driven by the challenge of creating a safer world.</p>
-            <img src="https://picsum.photos/seed/team/1200/500" alt="The TST Technologies team" className="rounded-lg shadow-2xl mx-auto"/>
+            <img src="https://picsum.photos/seed/team/1200/500" alt="Group photo of the dedicated TST Technologies team of security experts" className="rounded-lg shadow-2xl mx-auto"/>
           </div>
         </section>
       </AnimatedSection>

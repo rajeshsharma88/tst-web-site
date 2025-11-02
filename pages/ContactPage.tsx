@@ -1,8 +1,15 @@
+
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AnimatedSection from '../components/AnimatedSection';
+import useSeo from '../hooks/useSeo';
 
 const ContactPage: React.FC = () => {
+    useSeo({
+        title: 'Contact TST Technologies | Request a Quote',
+        description: 'Get in touch with the TST Technologies team for sales inquiries, support, or a custom quote. Contact us via phone, email, or our online form.'
+    });
+
     const location = useLocation();
     const { productName } = location.state || { productName: '' };
 

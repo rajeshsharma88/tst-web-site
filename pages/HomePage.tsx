@@ -1,9 +1,11 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PRODUCTS } from '../data/products';
 import { Product, Testimonial, Client } from '../types';
 import ProductCard from '../components/ProductCard';
 import AnimatedSection from '../components/AnimatedSection';
+import useSeo from '../hooks/useSeo';
 
 const testimonials: Testimonial[] = [
     { quote: "TST's biometric systems have revolutionized our access control. The installation was seamless and the support has been outstanding.", author: "John Doe", company: "SecureCorp" },
@@ -21,6 +23,12 @@ const clients: Client[] = [
 ];
 
 const HomePage: React.FC = () => {
+  useSeo({
+    title: 'TST Technologies | Advanced Biometric & Access Control Systems',
+    description: 'Your trusted partner for advanced security solutions including biometric scanners, RFID access control, turnstiles, and inspection systems. Secure your future with TST.',
+    imageUrl: 'https://picsum.photos/seed/hero/1200/630'
+  });
+
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const nextTestimonial = () => {
@@ -39,9 +47,13 @@ const HomePage: React.FC = () => {
       <section className="relative bg-secondary text-white h-[60vh] md:h-[80vh] flex items-center">
         <div className="absolute inset-0 bg-cover bg-center opacity-30" style={{ backgroundImage: "url('https://picsum.photos/seed/hero/1920/1080')" }}></div>
         <div className="container mx-auto px-4 z-10 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-down">Pioneering Security Through Technology</h1>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-in-up">Advanced solutions in biometric, RFID, and access control systems for a secure future.</p>
-          <Link to="/products" className="bg-primary text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4 animate-fade-in-down" style={{ animationDelay: '0.1s' }}>Pioneering Security Through Technology</h1>
+          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.3s' }}>Advanced solutions in biometric, RFID, and access control systems for a secure future.</p>
+          <Link 
+            to="/products" 
+            className="bg-primary text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg animate-fade-in-up"
+            style={{ animationDelay: '0.5s' }}
+          >
             Explore Our Products
           </Link>
         </div>
@@ -52,7 +64,7 @@ const HomePage: React.FC = () => {
         <section className="py-20 bg-gray-50">
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
               <div>
-                  <img src="https://picsum.photos/seed/about/600/400" alt="TST Technologies office" className="rounded-lg shadow-xl"/>
+                  <img src="https://picsum.photos/seed/about/600/400" alt="Modern office interior of TST Technologies, a security systems provider" className="rounded-lg shadow-xl"/>
               </div>
               <div>
                   <h2 className="text-3xl font-bold text-secondary mb-4">Your Trusted Partner in Security</h2>
@@ -106,7 +118,7 @@ const HomePage: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center">
               {clients.map(client => (
                 <div key={client.name} className="flex justify-center">
-                  <img src={client.logoUrl} alt={`${client.name} logo`} className="max-h-12 opacity-60 hover:opacity-100 transition-opacity duration-300"/>
+                  <img src={client.logoUrl} alt={`Logo of ${client.name}, a client of TST Technologies`} className="max-h-12 opacity-60 hover:opacity-100 transition-opacity duration-300"/>
                 </div>
               ))}
             </div>

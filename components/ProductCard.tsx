@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="overflow-hidden">
         <img
           src={product.images[0]}
-          alt={product.name}
+          alt={`Image of ${product.name}, a ${product.category} system`}
           className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
