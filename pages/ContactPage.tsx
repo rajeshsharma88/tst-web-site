@@ -12,12 +12,14 @@ const ContactPage: React.FC = () => {
     });
 
     const location = useLocation();
-    const { productName } = location.state || { productName: '' };
+    const { productName, requestType } = location.state || { productName: '', requestType: '' };
 
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        message: productName ? `I'm interested in a quote for the ${productName}.` : ''
+        message: productName
+        ? `I'm interested in a ${requestType === 'demo' ? 'demo' : 'quote'} for the ${productName}.`
+        : ''
     });
     const [status, setStatus] = useState('');
 
@@ -32,16 +34,35 @@ const ContactPage: React.FC = () => {
             setStatus('Please fill out all fields.');
             return;
         }
-        // Basic email validation
         if (!/\S+@\S+\.\S+/.test(formData.email)) {
             setStatus('Please enter a valid email address.');
             return;
         }
         
-        // Simulate form submission
-        console.log('Form submitted:', formData);
-        setStatus('Thank you for your message! We will get back to you shortly.');
-        setFormData({ name: '', email: '', message: ''});
+        const subject = encodeURIComponent(`Contact Form Submission from ${formData.name}`);
+        const body = encodeURIComponent(
+`You have received a new message from your website contact form.
+
+Here are the details:
+Name: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}`
+        );
+        window.location.href = `mailto:mukul.malik@tsttechnologies.co.in?subject=${subject}&body=${body}`;
+
+        setStatus('Redirecting you to your email client to send the message.');
+    };
+
+    const getStatusColor = () => {
+        if (status.includes('Redirecting')) {
+            return 'text-blue-600';
+        }
+        if (status) { // Any other status is a validation error
+            return 'text-red-600';
+        }
+        return '';
     };
 
     return (
@@ -107,7 +128,7 @@ const ContactPage: React.FC = () => {
                                 <div>
                                     <button type="submit" className="w-full bg-primary text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-colors duration-300">Submit</button>
                                 </div>
-                                {status && <p className={`mt-4 text-sm ${status.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>{status}</p>}
+                                {status && <p className={`mt-4 text-sm ${getStatusColor()}`}>{status}</p>}
                             </form>
                         </div>
                     </div>

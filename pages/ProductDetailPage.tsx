@@ -121,9 +121,18 @@ const ProductDetailPage: React.FC = () => {
                     </div>
                   </div>
 
-                  <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto text-center inline-block bg-primary text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                    Request a Quote
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <button onClick={() => setIsModalOpen(true)} className="w-full sm:w-auto text-center inline-block bg-primary text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                      Request a Quote
+                    </button>
+                    <Link
+                      to="/contact"
+                      state={{ productName: product.name, requestType: 'demo' }}
+                      className="w-full sm:w-auto text-center inline-block bg-transparent border-2 border-primary text-primary font-bold py-[10px] px-8 rounded-full text-lg hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                      Request a Demo
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

@@ -51,11 +51,37 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, productNam
       return;
     }
     
-    console.log('Modal form submitted:', formData);
-    setStatus('Thank you! Your quote request has been sent.');
+    const subject = encodeURIComponent(`Quote Request for ${productName} from ${formData.name}`);
+    const body = encodeURIComponent(
+`A new quote has been requested via the website modal.
+
+Product: ${productName}
+
+Customer Details:
+Name: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}`
+    );
+
+    window.location.href = `mailto:mukul.malik@tsttechnologies.co.in?subject=${subject}&body=${body}`;
+    
+    setStatus('Redirecting to your email client...');
+
     setTimeout(() => {
         onClose();
-    }, 2000);
+    }, 3000);
+  };
+
+  const getStatusColor = () => {
+    if (status.includes('Redirecting')) {
+        return 'text-blue-600';
+    }
+    if (status) { // Any other status is a validation error
+        return 'text-red-600';
+    }
+    return '';
   };
 
   return ReactDOM.createPortal(
@@ -81,7 +107,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose, productNam
             <div>
                 <button type="submit" className="w-full bg-primary text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-colors duration-300">Submit Request</button>
             </div>
-            {status && <p className={`mt-4 text-sm text-center ${status.includes('Thank you') ? 'text-green-600' : 'text-red-600'}`}>{status}</p>}
+            {status && <p className={`mt-4 text-sm text-center ${getStatusColor()}`}>{status}</p>}
         </form>
       </div>
     </div>,
